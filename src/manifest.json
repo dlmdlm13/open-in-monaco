@@ -6,5 +6,15 @@
   "action": {
     "default_popup": "index.html"
   },
+  "content_scripts": [
+    {
+      "js": [
+        "background.bundle.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "permissions": []
 }

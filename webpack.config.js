@@ -4,10 +4,17 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MonacoEditorWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    // devtool: false,
+    devtool: 'source-map',
+    entry: {
+
+        index: './src/index.js',
+        background: './src/background.js',
+        
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -22,14 +29,12 @@ module.exports = {
             ]
           }),
     ],
-    devtool: false,
-    // devtool: 'source-map',
     module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
-            },
-        ],
+      rules: [
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+      ],
     },
 };
