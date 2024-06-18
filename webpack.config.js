@@ -7,31 +7,39 @@ module.exports = {
     // devtool: false,
     devtool: 'source-map',
     entry: {
-
         index: './src/index.js',
         background: './src/background.js',
-        new_window: './src/new-window.js',
-        
+        newWindow: './src/new-window.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
+        publicPath: '/',
     },
     plugins: [
-        new HtmlWebpackPlugin({
-          template: './src/index.html',
-        }),
-        new MonacoEditorWebpackPlugin({
-          languages: ['javascript', 'typescript', 'json'],
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-              { from: 'src/manifest.json', to: 'manifest.json' },
-              { from: 'src/new-window.html', to: 'new-window.html' },
-              { from: 'src/new-window.js', to: 'new-window.js' }
-            ]
-          }),
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+        scriptLoading: 'module',
+        chunks: ['index'], // Spécifiez explicitement quels bundles inclure
+      }),
+      new HtmlWebpackPlugin({
+        template: './src/new-window.html',
+        filename: 'new-window.html', // Nom de fichier de sortie
+        scriptLoading: 'module',
+        chunks: ['newWindow'], // Utilisez le nom de l'entrée correspondante
+      }),
+      new MonacoEditorWebpackPlugin({
+        languages: ['javascript', 'typescript', 'json'],
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'src/manifest.json', to: 'manifest.json' },
+        ]
+      }),
     ],
+    resolve: {
+      extensions: ['.js', '.json'],
+    },
     module: {
       rules: [
         {

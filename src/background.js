@@ -1,7 +1,5 @@
 console.log("BACKGROUND SCRIPT LOADED");
 
-import monaco from 'monaco-editor';
-
 function newWindow() {
     // Ouvrir une nouvelle fenêtre
     var url = chrome.runtime.getURL('new-window.html');
