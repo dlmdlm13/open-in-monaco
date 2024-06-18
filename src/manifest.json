@@ -16,5 +16,13 @@
       ]
     }
   ],
-  "permissions": []
+  "permissions": [
+    "windows"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["new-window.html", "new-window.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

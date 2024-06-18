@@ -1,21 +1,17 @@
 console.log("BACKGROUND SCRIPT LOADED");
 
+import monaco from 'monaco-editor';
+
 function newWindow() {
     // Ouvrir une nouvelle fenêtre
-    let nouvelleFenetre = window.open('', '', 'width=600,height=400');
+    var url = chrome.runtime.getURL('new-window.html');
 
-    // Vérifier si la nouvelle fenêtre a été bloquée par un bloqueur de pop-up
-    if (!nouvelleFenetre) {
-        alert("La fenêtre n'a pas pu s'ouvrir. Veuillez désactiver votre bloqueur de pop-up.");
-        return;
-    }
+    // Ouvrez le fichier HTML dans une nouvelle fenêtre
+    var newWindow = window.open(url, '', 'width=500,height=500');
 
-    // Créer une nouvelle div
-    let div = nouvelleFenetre.document.createElement('div');
-    div.innerHTML = 'Contenu de la div'; // Ajouter du contenu à la div
+    // newWindow.document.write('<h1>Hello, new Window!</h1>');
+    // newWindow.console.log('Hello, new window!');
 
-    // Ajouter la div à la nouvelle fenêtre
-    nouvelleFenetre.document.body.appendChild(div);
 }
 
 document.addEventListener('keydown', function(event) {

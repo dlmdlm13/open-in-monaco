@@ -10,6 +10,7 @@ module.exports = {
 
         index: './src/index.js',
         background: './src/background.js',
+        new_window: './src/new-window.js',
         
     },
     output: {
@@ -25,7 +26,9 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-              { from: 'src/manifest.json', to: 'manifest.json' }
+              { from: 'src/manifest.json', to: 'manifest.json' },
+              { from: 'src/new-window.html', to: 'new-window.html' },
+              { from: 'src/new-window.js', to: 'new-window.js' }
             ]
           }),
     ],
