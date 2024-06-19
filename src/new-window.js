@@ -1,9 +1,19 @@
-console.log("NEW WINDOW SCRIPT LOADED");
 import monaco from 'monaco-editor';
 
-monaco.editor.create(document.getElementById('container'), {
-    value: 'console.log("Hello, world!")',
-    language: 'javascript',
-    theme: 'vs-dark',
-    automaticLayout: true,
+var content = "";
+
+chrome.storage.local.get(['monacoKey'], function(result) {
+    if (result.monacoKey) {
+        content = result.monacoKey;
+    }
+    createEditor();
 });
+
+function createEditor() {
+    monaco.editor.create(document.getElementById('container'), {
+        value: content,
+        language: 'javascript',
+        theme: 'vs-dark',
+        automaticLayout: true,
+    });
+}
