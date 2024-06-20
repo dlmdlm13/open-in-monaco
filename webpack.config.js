@@ -20,16 +20,16 @@ module.exports = {
       new HtmlWebpackPlugin({
         template: './src/index.html',
         scriptLoading: 'module',
-        chunks: ['index'], // Spécifiez explicitement quels bundles inclure
+        chunks: ['index'],
       }),
       new HtmlWebpackPlugin({
         template: './src/new-window.html',
-        filename: 'new-window.html', // Nom de fichier de sortie
+        filename: 'new-window.html',
         scriptLoading: 'module',
-        chunks: ['newWindow'], // Utilisez le nom de l'entrée correspondante
+        chunks: ['newWindow'],
       }),
       new MonacoEditorWebpackPlugin({
-        languages: ['javascript', 'typescript', 'json'],
+        languages: ['javascript', 'typescript', 'json', 'sql'],
       }),
       new CopyWebpackPlugin({
         patterns: [

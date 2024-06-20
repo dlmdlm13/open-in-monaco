@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "SandBox",
+  "name": "Open in Monaco",
   "version": "1.0",
-  "description": "SandBox",
+  "description": "Open the any text field in Monaco, the VS Code editor.",
   "action": {
     "default_popup": "index.html"
   },
