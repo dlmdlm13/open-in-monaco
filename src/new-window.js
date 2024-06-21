@@ -12,7 +12,7 @@ chrome.storage.local.get(['monacoKey'], function(result) {
 function createEditor() {
     monaco.editor.create(document.getElementById('container'), {
         value: content,
-        language: 'sql',
+        language: 'javascript',
         theme: 'vs-dark',
         automaticLayout: true,
     });
