@@ -1,11 +1,5 @@
 # Open in Monaco
 
-Open in Monaco is a Google Chrome / Edge extension that lets you open any text field in Monaco editor, the famous code editor.
-
-## Build
-
-# Open in Monaco
-
 Open in Monaco is a Google Chrome / Edge extension that lets you open any text field in Monaco editor, the famous vscode editor.
 
 ## Build
