@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Open in Monaco",
   "version": "1.0",
-  "description": "Open the any text field in Monaco, the VS Code editor.",
+  "description": "Open any text field in Monaco, the VS Code editor.",
   "action": {
     "default_popup": "index.html"
   },
