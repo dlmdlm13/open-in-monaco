@@ -6,9 +6,8 @@ function newWindow(content = "") {
     var newWindow = window.open(url, '', 'width=' + window.innerWidth + ',height=' + window.innerHeight);
 }
 
-document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 'q' && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
-        // event.preventDefault();
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.action === "open_in_monaco" && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
         newWindow(document.activeElement.value);
     }
 });

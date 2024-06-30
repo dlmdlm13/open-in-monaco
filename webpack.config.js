@@ -10,6 +10,7 @@ module.exports = {
         index: './src/index.js',
         background: './src/background.js',
         newWindow: './src/new-window.js',
+        sw: './src/sw.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

@@ -6,6 +6,9 @@
   "action": {
     "default_popup": "index.html"
   },
+  "background": {
+    "service_worker": "sw.bundle.js"
+  },
   "content_scripts": [
     {
       "js": [
@@ -25,5 +28,14 @@
       "resources": ["new-window.html", "new-window.js"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "commands": {
+    "open_in_monaco": {
+      "suggested_key": {
+        "default": "Ctrl+Q",
+        "mac": "Command+Q"
+      },
+      "description": "Open text field in Monaco editor"
+    }
+  }
 }
