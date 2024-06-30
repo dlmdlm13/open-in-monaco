@@ -1,7 +1,10 @@
 import monaco from 'monaco-editor';
 
-var content = "";
 var editor;
+var originalModel;
+var modifiedModel;
+var language = 'javascript';
+var content = "";
 
 chrome.storage.local.get(['monacoKey'], function (result) {
     if (result.monacoKey) {
@@ -11,11 +14,16 @@ chrome.storage.local.get(['monacoKey'], function (result) {
 });
 
 function createEditor() {
-    editor = monaco.editor.create(document.getElementById('container'), {
-        value: content,
-        language: 'javascript',
+    originalModel = monaco.editor.createModel(content, language);
+    modifiedModel = monaco.editor.createModel(content, language);
+
+    editor = monaco.editor.createDiffEditor(document.getElementById('container'), {
         theme: 'vs-dark',
-        automaticLayout: true,
+        enableSplitViewResizing: true,
+        renderSideBySide: true,
+    }).setModel({
+        original: originalModel,
+        modified: modifiedModel
     });
 }
 
@@ -23,7 +31,7 @@ document.getElementById('save-button').addEventListener('click', function () {
     saveContent();
 });
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.key === 's') {
         event.preventDefault();
         saveContent();
@@ -32,6 +40,10 @@ document.addEventListener('keydown', function(event) {
 
 function saveContent() {
     chrome.tabs.query({ active: true, currentWindow: false }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { action: "save", content: editor.getValue() });
+        chrome.tabs.sendMessage(tabs[0].id, { action: "save", content: modifiedModel.getValue() });
+        originalModel.setValue(modifiedModel.getValue());
+        editor.setModel({
+            original: originalModel
+        });
     });
 }
