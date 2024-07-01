@@ -3,7 +3,7 @@ import monaco from 'monaco-editor';
 var editor;
 var originalModel;
 var modifiedModel;
-var language = 'javascript';
+var language = 'sql';
 var content = "";
 
 chrome.storage.local.get(['monacoKey'], function (result) {
@@ -20,7 +20,8 @@ function createEditor() {
     editor = monaco.editor.createDiffEditor(document.getElementById('container'), {
         theme: 'vs-dark',
         enableSplitViewResizing: true,
-        renderSideBySide: true,
+        renderSideBySide: false,
+        automaticLayout: true
     }).setModel({
         original: originalModel,
         modified: modifiedModel
