@@ -30,7 +30,7 @@ module.exports = {
         chunks: ['newWindow'],
       }),
       new MonacoEditorWebpackPlugin({
-        languages: ['javascript', 'typescript', 'json', 'sql'],
+        languages: ['javascript', 'typescript', 'sql'],
       }),
       new CopyWebpackPlugin({
         patterns: [
