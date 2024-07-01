@@ -52,8 +52,5 @@ function saveContent() {
     chrome.tabs.query({ active: true, currentWindow: false }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { action: "save", content: modifiedModel.getValue() });
         originalModel.setValue(modifiedModel.getValue());
-        editor.setModel({
-            original: originalModel
-        });
     });
 }
