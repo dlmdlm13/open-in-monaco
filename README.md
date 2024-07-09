@@ -8,6 +8,7 @@ To build the project, you will need to have [nvm](https://nvm.sh) installed. Onc
 
 ```
 nvm use
+npm install
 npm run build
 ```
 
