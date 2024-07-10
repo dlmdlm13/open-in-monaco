@@ -9,9 +9,14 @@ function newWindow(content = "") {
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.action === "open_in_monaco" && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
-        currentTextField = document.activeElement;
-        newWindow(document.activeElement.value);
+    if (request.action === "open_in_monaco") {
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+            currentTextField = document.activeElement;
+            newWindow(document.activeElement.value);
+        }
+        else {
+            newWindow(document.getSelection().focusNode.valueOf().wholeText);
+        }
     }
 
     if (request.action === "save") {
