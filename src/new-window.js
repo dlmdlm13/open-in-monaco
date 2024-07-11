@@ -33,6 +33,10 @@ document.getElementById('diff-option').addEventListener('click', function() {
     createEditor();
 });
 
+document.getElementById('language-option').addEventListener('change', function() {
+    monaco.editor.setModelLanguage(modifiedModel, document.getElementById('language-option').value);
+});
+
 document.getElementById('save-button').addEventListener('click', function () {
     saveContent();
 });
@@ -64,15 +68,18 @@ chrome.storage.local.get(['monacoKey'], function (result) {
 
 function detectLanguage(code) {
     const result = hljs.highlightAuto(code, ['javascript', 'sql', 'xml']);
+    if (result.language) {
+        document.getElementById('language-option').value = result.language;
+    }
     return result.language;
 }
 
 function createEditor() {
     if (!modifiedModel) {
+        language = detectLanguage(content);
         modifiedModel = monaco.editor.createModel(content, language);
     }
     if (diff) {
-        language = detectLanguage(content);
         originalModel = monaco.editor.createModel(content, language);
     
         editor = monaco.editor.createDiffEditor(document.getElementById('container'), {
@@ -86,8 +93,6 @@ function createEditor() {
             modified: modifiedModel
         });
     } else {
-        language = detectLanguage(content);
-    
         editor = monaco.editor.create(document.getElementById('container'), {
             model: modifiedModel,
             theme: 'vs-dark',
