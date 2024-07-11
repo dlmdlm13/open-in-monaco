@@ -35,6 +35,10 @@ module.exports = {
       new CopyWebpackPlugin({
         patterns: [
           { from: 'src/manifest.json', to: 'manifest.json' },
+          { from: 'icons/128.png', to: 'icons/16.png' },
+          { from: 'icons/128.png', to: 'icons/32.png' },
+          { from: 'icons/128.png', to: 'icons/48.png' },
+          { from: 'icons/128.png', to: 'icons/128.png' },
         ]
       }),
     ],
