@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
             padding: 5px 10px;
             border-radius: 3px;
         }
+
         button:hover {
             color: lightgray;
         }
@@ -32,8 +34,10 @@
             background-color: #333;
             color: white;
             display: flex;
+            flex-direction: row;
             align-items: center;
             padding: 10px 10px;
+            column-gap: 30px;
         }
 
         #editor {
@@ -43,10 +47,18 @@
         }
     </style>
 </head>
+
 <body>
     <div id="editor">
-        <div id="toolbar"><button id="save-button" title="Save (ctrl + s)">SAVE</button></div>
+        <div id="toolbar">
+            <button id="save-button" title="Save (ctrl + s)">SAVE</button>
+            <div>
+                <input type="checkbox" id="diff-option" name="diff-option" />
+                <label for="diff-option">Diff editor</label>
+            </div>
+        </div>
         <div id="container"></div>
     </div>
 </body>
+
 </html>

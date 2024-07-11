@@ -1,8 +1,15 @@
-import monaco from 'monaco-editor';
+function saveOptions() {
+    var diff = document.getElementById('diff-option').checked;
+    chrome.storage.sync.set({diff: diff}, function() {
+    });
+}
 
-monaco.editor.create(document.getElementById('container'), {
-    value: 'console.log("Hello, world!")',
-    language: 'javascript',
-    theme: 'vs-dark',
-    automaticLayout: true,
-});
+// Restaure les options de l'utilisateur
+function restoreOptions() {
+    chrome.storage.sync.get('diff', function(items) {
+        document.getElementById('diff-option').checked = items.diff;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('diff-option').addEventListener('click', saveOptions);
