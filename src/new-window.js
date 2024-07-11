@@ -2,6 +2,7 @@ import monaco from 'monaco-editor';
 const hljs = require('highlight.js/lib/core');
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'));
+hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
 
 var editor;
 var originalModel;
@@ -62,7 +63,7 @@ chrome.storage.local.get(['monacoKey'], function (result) {
 });
 
 function detectLanguage(code) {
-    const result = hljs.highlightAuto(code, ['javascript', 'sql']);
+    const result = hljs.highlightAuto(code, ['javascript', 'sql', 'xml']);
     return result.language;
 }
 
