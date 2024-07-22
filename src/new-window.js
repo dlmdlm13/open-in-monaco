@@ -1,8 +1,39 @@
 import monaco from 'monaco-editor';
+import { formatXml } from './formatters';
+import { format } from 'sql-formatter';
 const hljs = require('highlight.js/lib/core');
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'));
 hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'));
+
+/**
+ * FORMATTERS
+ */
+
+monaco.languages.registerDocumentFormattingEditProvider('sql', {
+    async provideDocumentFormattingEdits(model, options) {
+        var formatted = format(model.getValue(), {
+            indent: ' '.repeat(options.tabSize)
+        });
+        return [
+            {
+                range: model.getFullModelRange(),
+                text: formatted
+            }
+        ];
+    }
+});
+
+monaco.languages.registerDocumentFormattingEditProvider('xml', {
+    async provideDocumentFormattingEdits(model, options) {
+        return [
+            {
+                range: model.getFullModelRange(),
+                text: formatXml(model.getValue()),
+            },
+        ];
+    },
+});
 
 var editor;
 var originalModel;
@@ -16,7 +47,7 @@ var diff;
  */
 
 function restoreOptions() {
-    chrome.storage.sync.get('diff', function(items) {
+    chrome.storage.sync.get('diff', function (items) {
         document.getElementById('diff-option').checked = items.diff
         diff = items.diff;
         createEditor();
@@ -24,17 +55,19 @@ function restoreOptions() {
 }
 function saveOptions() {
     diff = document.getElementById('diff-option').checked;
-    chrome.storage.sync.set({diff: diff}, function() {
+    chrome.storage.sync.set({ diff: diff }, function () {
     });
 }
-document.getElementById('diff-option').addEventListener('click', function() {
+document.getElementById('diff-option').addEventListener('click', function () {
     saveOptions();
     editor.dispose();
     createEditor();
 });
 
-document.getElementById('language-option').addEventListener('change', function() {
-    monaco.editor.setModelLanguage(modifiedModel, document.getElementById('language-option').value);
+document.getElementById('language-option').addEventListener('change', function () {
+    var language = document.getElementById('language-option').value;
+    monaco.editor.setModelLanguage(modifiedModel, language);
+    monaco.editor.setModelLanguage(originalModel, language);
 });
 
 document.getElementById('save-button').addEventListener('click', function () {
@@ -78,10 +111,9 @@ function createEditor() {
     if (!modifiedModel) {
         language = detectLanguage(content);
         modifiedModel = monaco.editor.createModel(content, language);
+        originalModel = monaco.editor.createModel(content, language);
     }
     if (diff) {
-        originalModel = monaco.editor.createModel(content, language);
-    
         editor = monaco.editor.createDiffEditor(document.getElementById('container'), {
             theme: 'vs-dark',
             enableSplitViewResizing: true,
