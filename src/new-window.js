@@ -118,7 +118,8 @@ function createEditor() {
             theme: 'vs-dark',
             enableSplitViewResizing: true,
             renderSideBySide: false,
-            automaticLayout: true
+            automaticLayout: true,
+            renderSideBySide: true
         });
         editor.setModel({
             original: originalModel,
